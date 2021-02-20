@@ -83,12 +83,14 @@
       let url = document.getElementById("endpoint").value;
       fetch(url, {
         method: 'get',
-      }).then(status).then(json).then(function (data) {
-        document.getElementsById("output").innerHTML = JSON.stringify(data);
+      }).then(status)
+      .then(json)
+      .then(function (data) {
+        document.getElementById("output").innerText = JSON.stringify(data);
         console.log("REQUEST SUCESS", data)
       })
         .catch(function (error) {
-          //  document.getElementsById("output").innerHTML = error;
+          //  document.getElementById("output").innerHTML = error;
         });
     }
 
@@ -105,11 +107,11 @@
       })
         .then(json)
         .then(function (data) {
-          document.getElementsById("output").innerHTML = JSON.stringify(data);
+          document.getElementById("output").innerText = JSON.stringify(data);
           console.log("REQUEST SUCESS", data)
         })
         .catch(function (error) {
-          //     document.getElementsById("output").innerHTML = error;
+          //     document.getElementById("output").innerHTML = error;
         });
     }
 
@@ -119,7 +121,10 @@
     // the writeup to view the URL pattern for create and update
     function createRecord(com) {
       hideIdForm();
+      
       if (com == "show") {
+        document.getElementById('author').value = "";
+        document.getElementById('title').value = "";
         document.getElementById("recordForm").style.display = "initial";
         document.getElementById("recordIDcontainer").style.display = "none";
       }
@@ -137,7 +142,7 @@
         })
           .then(json)
           .then(function (data) {
-            document.getElementsById("output").innerHTML = JSON.stringify(data);
+            document.getElementById("output").innerText = JSON.stringify(data);
           })
           .catch(function (error) {
             console.log('Request failed', error);
@@ -153,7 +158,12 @@
     // The main difference from createRecord() will be the URL you send data to; check
     // the writeup to view the URL pattern for create and update
     function updateRecord(com) {
+      
+      
       if (com == "show") {
+        document.getElementById('author').value = "";
+        document.getElementById('title').value = "";
+        document.getElementById('recordID').value = "";
         document.getElementById("recordForm").style.display = "initial";
         document.getElementById("recordIDcontainer").style.display = "initial";
       }
@@ -172,7 +182,7 @@
           
           .then(json)
           .then(function (data) {
-            document.getElementsById("output").innerHTML = JSON.stringify(data);
+            document.getElementById("output").innerText = JSON.stringify(data);
           })
           .catch(function (error) {
             console.log('Request failed', error);
@@ -193,10 +203,10 @@
         method: 'delete',
       }).then(json)
         .then(function (data) {
-          document.getElementsById("output").innerHTML = JSON.stringify(data);
+          document.getElementById("output").innerText = JSON.stringify(data);
         })
         .catch(function (error) {
-          //   document.getElementsById("output").innerHTML = error;
+          //   document.getElementById("output").innerHTML = error;
         });
     }
 
