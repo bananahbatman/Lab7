@@ -121,7 +121,8 @@
     // the writeup to view the URL pattern for create and update
     function createRecord(com) {
       hideIdForm();
-      
+      let author = document.getElementById("author").value
+      let title = document.getElementById("title").value
       if (com == "show") {
         document.getElementById('author').value = "";
         document.getElementById('title').value = "";
@@ -135,10 +136,10 @@
           headers: {
             "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
           },
-          body: {
-            'Author': document.getElementById("author").value,
-            'Title': document.getElementById("title").value
-          }
+          body: JSON.stringify({
+            author: document.getElementById("author").value,
+            title: document.getElementById("title").value
+          }) 
         })
           .then(json)
           .then(function (data) {
@@ -169,15 +170,17 @@
       }
       else if (com == "submit") {
         let url = document.getElementById("endpoint").value + "/" + document.getElementById("recordID").value;
+        let author = document.getElementById("author").value
+        let title = document.getElementById("title").value
         fetch(url, {
           method: 'update',
           headers: {
             "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
           },
-          body: {
-            'Author': document.getElementById("author").value,
-            'Title': document.getElementById("title").value
-          }
+          body: JSON.stringify({
+            author : document.getElementById("author").value,
+            title : document.getElementById("title").value
+          }) 
         })
           
           .then(json)
@@ -208,6 +211,7 @@
         .catch(function (error) {
           //   document.getElementById("output").innerHTML = error;
         });
+        
     }
 
     function json(response) {
