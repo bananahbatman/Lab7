@@ -4,35 +4,8 @@
       "id": 1,
       "title": "json-server",
       "author": "typicode"
-    },
-    {
-      "[object Object]": "",
-      "id": 3
-    },
-    {
-      "[object Object]": "",
-      "id": 5
-    },
-    {
-      "Author": "Title",
-      "id": 6
-    },
-    {
-      "[object Object]": "",
-      "id": 7
-    },
-    {
-      "[object Object]": "",
-      "id": 8
-    },
-    {
-      "{\"author\":\"Billy\",\"title\":\"Jean\"}": "",
-      "id": 9
-    },
-    {
-      "{\"author\":\"Other\",\"title\":\"BILLy\"}": "",
-      "id": 10
     }
+    
   ],
   "comments": [
     {

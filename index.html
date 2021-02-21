@@ -84,13 +84,18 @@
       fetch(url, {
         method: 'get',
       }).then(status)
-      .then(json)
-      .then(function (data) {
-        document.getElementById("output").innerText = JSON.stringify(data);
-        console.log("REQUEST SUCESS", data)
-      })
+        .then((response) => {
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error(response.status);
+          })
+        .then(function (data) {
+          document.getElementById("output").innerText = JSON.stringify(data);
+          console.log("REQUEST SUCESS", data)
+        })
         .catch(function (error) {
-          //  document.getElementById("output").innerHTML = error;
+          document.getElementById("output").innerText = JSON.stringify(error);
         });
     }
 
@@ -105,13 +110,20 @@
       fetch(url, {
         method: 'get',
       })
-        .then(json)
+      .then((response) => {
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error(response.status);
+          })
         .then(function (data) {
+
+          
           document.getElementById("output").innerText = JSON.stringify(data);
           console.log("REQUEST SUCESS", data)
         })
-        .catch(function (error) {
-          //     document.getElementById("output").innerHTML = error;
+        .catch((error) =>  {
+          document.getElementById("output").innerHTML = error;
         });
     }
 
@@ -121,8 +133,7 @@
     // the writeup to view the URL pattern for create and update
     function createRecord(com) {
       hideIdForm();
-      let author = document.getElementById("author").value
-      let title = document.getElementById("title").value
+
       if (com == "show") {
         document.getElementById('author').value = "";
         document.getElementById('title').value = "";
@@ -131,22 +142,33 @@
       }
       else if (com == "submit") {
         let url = document.getElementById("endpoint").value;
+        let author = document.getElementById("author").value;
+        let title = document.getElementById("title").value;
+        let daBody = {
+          author: author,
+          title: title
+        }
+
         fetch(url, {
           method: 'post',
           headers: {
-            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+            "Content-type": "application/json"
           },
-          body: JSON.stringify({
-            author: document.getElementById("author").value,
-            title: document.getElementById("title").value
-          }) 
+          body: JSON.stringify(daBody)
         })
-          .then(json)
+        .then((response) => {
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error(response.status);
+          })
           .then(function (data) {
+            console.log(data);
             document.getElementById("output").innerText = JSON.stringify(data);
           })
           .catch(function (error) {
-            console.log('Request failed', error);
+            document.getElementById("output").innerText = JSON.stringify(error);
+
           });
       }
 
@@ -159,8 +181,7 @@
     // The main difference from createRecord() will be the URL you send data to; check
     // the writeup to view the URL pattern for create and update
     function updateRecord(com) {
-      
-      
+
       if (com == "show") {
         document.getElementById('author').value = "";
         document.getElementById('title').value = "";
@@ -170,25 +191,31 @@
       }
       else if (com == "submit") {
         let url = document.getElementById("endpoint").value + "/" + document.getElementById("recordID").value;
-        let author = document.getElementById("author").value
-        let title = document.getElementById("title").value
+        let author = document.getElementById("author").value;
+        let title = document.getElementById("title").value;
+        let daBody = {
+          author: author,
+          title: title
+        }
+
         fetch(url, {
-          method: 'update',
+          method: 'put',
           headers: {
-            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+            "Content-type": "application/json"
           },
-          body: JSON.stringify({
-            author : document.getElementById("author").value,
-            title : document.getElementById("title").value
-          }) 
+          body: JSON.stringify(daBody)
         })
-          
-          .then(json)
+        .then((response) => {
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error(response.status);
+          })
           .then(function (data) {
             document.getElementById("output").innerText = JSON.stringify(data);
           })
           .catch(function (error) {
-            console.log('Request failed', error);
+            document.getElementById("output").innerText = JSON.stringify(error);
           });
       }
     }
@@ -204,19 +231,21 @@
       let url = document.getElementById("endpoint").value + "/" + id;
       fetch(url, {
         method: 'delete',
-      }).then(json)
+      }).then((response) => {
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error(response.status);
+          })
         .then(function (data) {
           document.getElementById("output").innerText = JSON.stringify(data);
         })
-        .catch(function (error) {
-          //   document.getElementById("output").innerHTML = error;
+        .catch((error) => {
+          document.getElementById("output").innerHTML = error;
         });
-        
+
     }
 
-    function json(response) {
-      return response.json()
-    }
 
     function status(response) {
       if (response.status >= 200 && response.status < 300) {
